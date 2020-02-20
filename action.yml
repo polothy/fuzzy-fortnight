@@ -1,10 +1,19 @@
-name: 'Your name here'
-description: 'Provide a description here'
+# Docs: https://help.github.com/en/actions/building-actions/metadata-syntax-for-github-actions
+name: 'version'
+description: 'Get the version from a file and verify it has not been created already'
 author: 'Your name or organization here'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  file:
+    description: 'The file name to grab the version from'
+    default: 'VERSION'
+    required: true
+  prepend:
+    description: 'Prepend the version with this value'
+    required: false
+    default: 'v'
+outputs:
+  version:
+    description: 'The validated version found in the file'
 runs:
   using: 'node12'
   main: 'dist/index.js'
