@@ -15,15 +15,17 @@ describe('version', () => {
     await io.mkdirP(localPath)
     fs.writeFileSync(path.join(remotePath, 'index.txt'), 'data')
 
-    await exec.exec('git', ['init'], {cwd: remotePath})
-    await exec.exec('git', ['add', 'index.txt'], {cwd: remotePath})
-    await exec.exec('git', ['commit', '-m', 'test'], {cwd: remotePath})
-    await exec.exec('git', ['tag', testTag], {cwd: remotePath})
+    const rOpt = {cwd: remotePath}
+    await exec.exec('git', ['init'], rOpt)
+    await exec.exec('git', ['config', 'user.email', 'test@example.com'], rOpt)
+    await exec.exec('git', ['config', 'user.name', 'tester'], rOpt)
+    await exec.exec('git', ['add', 'index.txt'], rOpt)
+    await exec.exec('git', ['commit', '-m', 'test'], rOpt)
+    await exec.exec('git', ['tag', testTag], rOpt)
 
-    await exec.exec('git', ['init'], {cwd: localPath})
-    await exec.exec('git', ['remote', 'add', 'origin', remotePath], {
-      cwd: localPath
-    })
+    const lOpt = {cwd: localPath}
+    await exec.exec('git', ['init'], lOpt)
+    await exec.exec('git', ['remote', 'add', 'origin', remotePath], lOpt)
   })
 
   afterAll(async () => {
