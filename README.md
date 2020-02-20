@@ -2,6 +2,8 @@
 
 # Version File GitHub Action
 
+bah
+
 This action just reads a file from your repository to get the next release version.
 It will also verify that the tag does not already exist. If it does already exist,
 it will fail the step.
